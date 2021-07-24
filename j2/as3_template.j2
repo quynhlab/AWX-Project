@@ -14,22 +14,42 @@
             "http"
         ],
         "members": [
-            {
-                "servicePort": [
-                    {% set comma = joiner(",") %}
-                    {% for mem in service_port %}
-                        {{comma()}} "{{  hostvars[mem]['ansible_port']  }}"
-                    {% endfor %}
-
-                ],
-                "serverAddresses": [
-                    {% set comma = joiner(",") %}
-                    {% for mem in pool_members %}
-                        {{comma()}} "{{  hostvars[mem]['ansible_host']  }}"
-                    {% endfor %}
-
-                ]
-            }
-        ]
+  {
+    "servicePort": 6060,
+    "serverAddresses": [
+      "10.163.12.104"
+    ]
+  },
+  {
+    "servicePort": 6161,
+    "serverAddresses": [
+      "10.163.12.105"
+    ]
+  },
+  {
+    "servicePort": 6262,
+    "serverAddresses": [
+      "10.163.12.106"
+    ]
+  },
+  {
+    "servicePort": 6363,
+    "serverAddresses": [
+      "10.163.12.107"
+    ]
+  },
+  {
+    "servicePort": 6464,
+    "serverAddresses": [
+      "10.163.12.108"
+    ]
+  },
+  {
+    "servicePort": 6565,
+    "serverAddresses": [
+      "10.163.12.109"
+    ]
+  }
+]
     }
 }
