@@ -15,7 +15,13 @@
         ],
         "members": [
             {
-                "servicePort": 443,
+                "servicePort": [
+                    {% set comma = joiner(",") %}
+                    {% for mem in service_port %}
+                        {{comma()}} "{{  hostvars[mem]['ansible_port']  }}"
+                    {% endfor %}
+
+                ],
                 "serverAddresses": [
                     {% set comma = joiner(",") %}
                     {% for mem in pool_members %}
