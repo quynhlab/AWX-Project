@@ -1,0 +1,95 @@
+"{{ domain }}": {
+    "class": "Application",
+    "template": "http",
+    "serviceMain": {
+        "class": "Service_HTTP",
+        "virtualAddresses": [
+            "{{virtual_ip}}"
+        ],
+        "profileHTTP": {
+            "use": "customHTTPProfile"
+        },
+        "profileTCP": {
+            "use": "customTCPProfile"
+        },
+        "snat": {
+            "use": "snat-minio"
+        },
+        "pool": "service",
+        "persistenceMethods": [],
+        "serverTLS": "clientssl-minio",
+    },
+    "customHTTPProfile": {
+        "class": "HTTP_Profile",
+        "xForwardedFor": true
+    },
+    "customTCPProfile": {
+        "class": "TCP_Profile",
+        "idleTimeout": 600
+    },
+    "customMonitorProfile": {
+        "class": "Monitor",
+        "monitorType": "http",
+        "send": "HEAD /minio/health/ready HTTP/1.0",
+        "receive": "HTTP/1.1 200 OK"
+    },
+    "service": {
+        "class": "Pool",
+        "loadBalancingMode": "round-robin",
+        "monitors": [
+          {
+            "use": "customMonitorProfile"
+          }
+        ],
+        "members": [
+        {
+          "servicePort": {{ port_worker1 }},
+          "serverAddresses": [
+              "10.163.12.104"
+          ]
+        },
+        {
+          "servicePort": {{ port_worker2 }},
+          "serverAddresses": [
+            "10.163.12.105"
+          ]
+        },
+        {
+          "servicePort": {{ port_worker3 }},
+          "serverAddresses": [
+            "10.163.12.106"
+          ]
+        },
+        {
+          "servicePort": {{ port_worker4 }},
+          "serverAddresses": [
+            "10.163.12.107"
+          ]
+        },
+        {
+          "servicePort": {{ port_worker5 }},
+          "serverAddresses": [
+            "10.163.12.108"
+          ]
+        },
+        {
+          "servicePort": {{ port_worker6 }},
+          "serverAddresses": [
+            "10.163.12.109"
+          ]
+        }
+      ]
+    },
+    "clientssl-minio": {
+    "class": "TLS_Server",
+    "certificates": [{
+      "certificate": "cert-minio"
+    }]
+    },
+    "cert-minio": {
+      "class": "Certificate",
+      "remark": "Using a passphrase",
+      "certificate": "{{ cert }}",
+      "privateKey": "{{ key }}"
+    }
+  }
