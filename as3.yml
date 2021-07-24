@@ -16,7 +16,7 @@
       no_log: true
       uri:
         url: "https://{{ ansible_host }}:443/mgmt/shared/appsvcs/declare"
-        method: POST
+        method: DELETE
         body: "{{ lookup('template','j2/tenant_base.j2', split_lines=False) }}"
         status_code: 200
         timeout: 300
