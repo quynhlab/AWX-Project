@@ -6,7 +6,7 @@
 
   vars:
     pool_members: "{{ groups['backend'] }}"
-    port: "{{ groups['service_port'] }}"
+    servicePort: "{{ groups['service_port'] }}"
 
   tasks:
     - name: CREATE AS3 JSON BODY
