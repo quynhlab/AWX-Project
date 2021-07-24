@@ -4,7 +4,7 @@
     "serviceMain": {
         "class": "Service_HTTP",
         "virtualAddresses": [
-            "{{private_ip}}"
+            "{{virtual_ip}}"
         ],
         "pool": "app_pool"
     },
@@ -15,37 +15,37 @@
         ],
         "members": [
         {
-          "servicePort": 6060,
+          "servicePort": {{ port_worker1 }},
           "serverAddresses": [
               "10.163.12.104"
           ]
         },
         {
-          "servicePort": 6161,
+          "servicePort": {{ port_worker2 }},
           "serverAddresses": [
             "10.163.12.105"
           ]
         },
         {
-          "servicePort": 6262,
+          "servicePort": {{ port_worker3 }},
           "serverAddresses": [
             "10.163.12.106"
           ]
         },
         {
-          "servicePort": 6363,
+          "servicePort": {{ port_worker4 }},
           "serverAddresses": [
             "10.163.12.107"
           ]
         },
         {
-          "servicePort": 6464,
+          "servicePort": {{ port_worker5 }},
           "serverAddresses": [
             "10.163.12.108"
           ]
         },
         {
-          "servicePort": 6565,
+          "servicePort": {{ port_worker6 }},
           "serverAddresses": [
             "10.163.12.109"
           ]
