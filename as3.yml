@@ -14,7 +14,7 @@
         as3_app_body: "{{ lookup('template', 'j2/as3_template.j2', split_lines=False) }}"
 
     - name: PUSH AS3
-      no_log: true
+      #no_log: true
       uri:
         url: "https://{{ ansible_host }}:443/mgmt/shared/appsvcs/declare"
         method: POST
