@@ -1,4 +1,4 @@
-"web_app": {
+"{{ domain }}": {
     "class": "Application",
     "template": "http",
     "serviceMain": {
@@ -6,12 +6,40 @@
         "virtualAddresses": [
             "{{virtual_ip}}"
         ],
-        "pool": "app_pool"
+        "profileHTTP": {
+            "use": "customHTTPProfile"
+        },
+        "profileTCP": {
+            "use": "customTCPProfile"
+        },
+        "snat": {
+            "use": "snat-minio"
+        },
+        "pool": "service",
+        "persistenceMethods": [],
+        "serverTLS": "clientssl-minio",
     },
-    "app_pool": {
+    "customHTTPProfile": {
+        "class": "HTTP_Profile",
+        "xForwardedFor": true
+    },
+    "customTCPProfile": {
+        "class": "TCP_Profile",
+        "idleTimeout": 600
+    },
+    "customMonitorProfile": {
+        "class": "Monitor",
+        "monitorType": "http",
+        "send": "HEAD /minio/health/ready HTTP/1.0",
+        "receive": "HTTP/1.1 200 OK"
+    },
+    "service": {
         "class": "Pool",
+        "loadBalancingMode": "round-robin",
         "monitors": [
-            "http"
+          {
+            "use": "customMonitorProfile"
+          }
         ],
         "members": [
         {
@@ -51,5 +79,17 @@
           ]
         }
       ]
+    },
+    "clientssl-minio": {
+    "class": "TLS_Server",
+    "certificates": [{
+      "certificate": "cert-minio"
+    }]
+    },
+    "cert-minio": {
+      "class": "Certificate",
+      "remark": "Using a passphrase",
+      "certificate": "{{ cert }}",
+      "privateKey": "{{ key }}"
     }
-}
+  }
