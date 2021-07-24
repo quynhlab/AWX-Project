@@ -1,7 +1,8 @@
 "{{ domain }}": {
     "class": "Application",
+    "template": "https",
     "serviceMain": {
-        "class": "Service_Generic",
+        "class": "Service_HTTPS",
         "virtualAddresses": [
             "{{virtual_ip}}"
         ],
