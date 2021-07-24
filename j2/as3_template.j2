@@ -1,8 +1,7 @@
 "{{ domain }}": {
     "class": "Application",
-    "template": "http",
     "serviceMain": {
-        "class": "Service_HTTP",
+        "class": "Service_HTTPS",
         "virtualAddresses": [
             "{{virtual_ip}}"
         ],
