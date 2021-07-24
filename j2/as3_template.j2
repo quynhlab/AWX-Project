@@ -32,6 +32,13 @@
         "send": "HEAD /minio/health/ready HTTP/1.0",
         "receive": "HTTP/1.1 200 OK"
     },
+    "snat-minio": {
+        "class": "SNAT_Pool",
+        "snatAddresses": [
+                "1.1.1.1",
+                "2.2.2.2"
+        ]
+    },
     "service": {
         "class": "Pool",
         "loadBalancingMode": "round-robin",
