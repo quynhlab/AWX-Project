@@ -1,6 +1,6 @@
 {
     "class": "AS3",
-    "action": "deploy",
+    "action": "patch",
     "persist": true,
     "declaration": {
         "class": "ADC",
@@ -10,6 +10,7 @@
         "remark": "minio3",
         "S3-Minio":{
             "class": "Tenant",
+            "op": "add",
             {{ as3_app_body }}
         }
     }
